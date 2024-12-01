@@ -10,5 +10,3 @@ keras
 bson
 langchain-groq
 langchain
-json
-os
