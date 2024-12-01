@@ -10,3 +10,4 @@ keras
 bson
 langchain-groq
 langchain
+gunicorn
