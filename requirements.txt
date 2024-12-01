@@ -1,0 +1,15 @@
+Flask
+pymongo
+werkzeug
+nltk
+numpy
+requests
+Flask-WTF
+wtforms
+keras
+bson
+langchain-groq
+langchain
+groq
+json
+os
