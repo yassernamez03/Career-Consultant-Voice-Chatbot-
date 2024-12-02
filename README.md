@@ -16,7 +16,7 @@ This repository contains the "Tari9i" chatbot application designed to provide pe
 ## Demo
 
 Check out the demo video of the "Tari9i" Career Counseling Chatbot in action:  
-[![Watch the demo video][(https://img.youtube.com/vi/defbE6fyKOE/0.jpg)](https://youtu.be/defbE6fyKOE)](https://youtu.be/c07q_npy87Q)
+[![Watch the demo video][(https://img.youtube.com/vi/defbE6fyKOE/0.jpg)](https://youtu.be/c07q_npy87Q)
 
 ## Prerequisites
 
