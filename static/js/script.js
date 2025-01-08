@@ -72,3 +72,92 @@ function themeToggle(){
         document.documentElement.style.setProperty("--image", "url('/static/res/image.png')");
     }
 }
+
+
+let mediaRecorder;
+let audioChunks = [];
+let isRecording = false;
+
+document.getElementById("record-button-container").addEventListener("click", async function (e) {
+    e.preventDefault();
+
+    const micIcon = document.getElementById("record-voice");
+
+    if (!isRecording) {
+        // Start recording
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.start();
+
+        isRecording = true;
+        micIcon.style.color = "red"; // Indicate recording
+
+        audioChunks = [];
+        mediaRecorder.addEventListener("dataavailable", event => {
+            audioChunks.push(event.data);
+        });
+
+        mediaRecorder.addEventListener("stop", () => {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            sendAudioToBackend(audioBlob);
+        });
+
+        console.log("Recording started...");
+    } else {
+        // Stop recording
+        mediaRecorder.stop();
+        isRecording = false;
+        micIcon.style.color = ""; // Reset mic color
+        console.log("Recording stopped.");
+    }
+});
+
+function sendAudioToBackend(audioBlob) {
+    const formData = new FormData();
+    formData.append("audio", audioBlob);
+
+    fetch("/upload-audio", {
+        method: "POST",
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => console.log("Audio uploaded:", data))
+    .catch(error => console.error("Error uploading audio:", error));
+}
+
+
+function sendAudioToBackend(audioBlob) {
+    const formData = new FormData();
+    formData.append("audio", audioBlob);
+
+    // Display the audio on the page
+    displayRecordedAudio(audioBlob);
+
+    fetch("/upload-audio", {
+        method: "POST",
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => console.log("Audio uploaded:", data))
+    .catch(error => console.error("Error uploading audio:", error));
+}
+
+function displayRecordedAudio(audioBlob) {
+    const audioURL = URL.createObjectURL(audioBlob);
+
+    // Create an audio element
+    const audioElement = document.createElement("audio");
+    audioElement.controls = true; // Enable play/pause controls
+    audioElement.src = audioURL;
+
+    // Append the audio element to the conversation div
+    const conversationDiv = document.querySelector(".conversation");
+    const audioContainer = document.createElement("div");
+    audioContainer.classList.add("audio-message");
+    audioContainer.appendChild(audioElement);
+
+    conversationDiv.appendChild(audioContainer);
+
+    // Scroll to the bottom of the conversation div
+    conversationDiv.scrollTop = conversationDiv.scrollHeight;
+}

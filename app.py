@@ -29,6 +29,10 @@ chatbot = CareerCounselingChatbot(json_file_path, groq_api_key)
 # )
 
 
+UPLOAD_FOLDER = 'uploads'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+
 app = Flask(__name__)
 secret_key = os.urandom(12).hex()
 app.config['SECRET_KEY'] = secret_key
@@ -262,6 +266,16 @@ def recovery():
         return redirect(url_for('login'))
 
     return render_template('reset.html', form=form)
+
+@app.route('/upload-audio', methods=['POST'])
+def upload_audio():
+    if 'audio' not in request.files:
+        return {"error": "No audio file uploaded"}, 400
+    
+    audio = request.files['audio']
+    audio_path = os.path.join(UPLOAD_FOLDER, audio.filename)
+    audio.save(audio_path)
+    return {"message": "Audio saved successfully", "path": audio_path}, 200
 
 
 @app.route("/destroy", methods=("POST", "GET"))

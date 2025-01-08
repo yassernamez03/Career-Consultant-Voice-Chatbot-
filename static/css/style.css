@@ -492,6 +492,31 @@ body {
 .chatbot-container .message-container .tools .search input:focus {
     text-indent: 1em;
 }
+
+.chatbot-container .message-container .tools .search #record-button-container {
+    cursor: pointer;
+    background-color: var(--background);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5%;
+}
+.chatbot-container .message-container .tools .search #record-button-container:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.065);
+}
+.chatbot-container .message-container .tools .search #record-voice {
+    color: var(--white);
+    font-size: 25px;
+    user-select: none;
+    padding: 1em;
+}
+
+.chatbot-container .message-container .tools .search #record-voice:hover {
+    font-size: 28px;
+}
+
+
 .chatbot-container .message-container .tools .search #send-button-container {
     cursor: pointer;
     background-color: var(--background);
@@ -507,13 +532,13 @@ body {
 }
 .chatbot-container .message-container .tools .search #send-button {
     color: var(--white);
-    font-size: 20px;
+    font-size: 25px;
     user-select: none;
     padding: 1em;
 }
 
 .chatbot-container .message-container .tools .search #send-button:hover {
-    font-size: 22px;
+    font-size: 28px;
 }
 .sent {
     animation: send .5s forwards;
@@ -867,3 +892,27 @@ body {
     transform-origin: 0 0; /* see note above */
   }
   .ldio-vnlgna7uy9 div { box-sizing: content-box; }
+
+
+
+
+
+
+
+
+
+
+  .audio-message {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.audio-message audio {
+    width: 50%;
+    outline: none;
+}
